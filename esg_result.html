@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>ESG 자가진단 결과</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="countryESG.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+      padding: 40px;
+    }
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      border-left: 5px solid #673ab7;
+      padding-left: 15px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    canvas {
+      margin-top: 40px;
+    }
+    #recommendations {
+      margin-top: 40px;
+    }
+    #mapLink {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #673ab7;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ESG 자가진단 결과</h1>
+    <div id="summary"></div>
+    <canvas id="esgChart"></canvas>
+    <div id="recommendations"></div>
+    <a id="mapLink" href="#" target="_blank">🌍 유사 국가 지도 보기</a>
+  </div>
+
+  <script>
+    function toGrade(score) {
+      if (score >= 90) return "A+";
+      if (score >= 80) return "A";
+      if (score >= 70) return "B+";
+      if (score >= 60) return "B";
+      if (score >= 50) return "C";
+      if (score >= 40) return "D";
+      return "E";
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const areaScores = { E: [], S: [], G: [] };
+    const rawScores = { E: 0, S: 0, G: 0 }, maxScores = { E: 0, S: 0, G: 0 };
+
+    const questionMeta = {q1: { area: 'E', type: 'yesno', positive: '1' }, q2: { area: 'E', type: 'number', direction: 'low' },
+      q3: { area: 'E', type: 'yesno', positive: '1' }, q4: { area: 'E', type: 'number', direction: 'high' },
+      q5: { area: 'E', type: 'yesno', positive: '1' }, q6: { area: 'E', type: 'yesno', positive: '1' },
+      q7: { area: 'E', type: 'number', direction: 'low' }, q8: { area: 'E', type: 'yesno', positive: '1' },
+      q9: { area: 'E', type: 'yesno', positive: '1' }, q10: { area: 'E', type: 'yesno', positive: '1' },
+      q11: { area: 'E', type: 'yesno', positive: '1' }, q12: { area: 'E', type: 'yesno', positive: '1' },
+      q13: { area: 'E', type: 'yesno', positive: '1' }, q14: { area: 'E', type: 'number', direction: 'low' },
+      q15: { area: 'E', type: 'number', direction: 'high' }, q16: { area: 'E', type: 'yesno', positive: '1' },
+      q17: { area: 'E', type: 'yesno', positive: '1' }, q18: { area: 'E', type: 'number', direction: 'high' },
+      q19: { area: 'E', type: 'yesno', positive: '1' }, q20: { area: 'E', type: 'yesno', positive: '1' },
+      q21: { area: 'E', type: 'number', direction: 'high' }, q22: { area: 'E', type: 'number', direction: 'low' },
+      q23: { area: 'E', type: 'yesno', positive: '1' }, q24: { area: 'E', type: 'yesno', positive: '1' },
+      q25: { area: 'E', type: 'yesno', positive: '1' }, q26: { area: 'E', type: 'yesno', positive: '1' },
+      q27: { area: 'E', type: 'yesno', positive: '1' }, q28: { area: 'E', type: 'number', direction: 'low' },
+      q29: { area: 'S', type: 'yesno', positive: '1' }, q30: { area: 'S', type: 'number', direction: 'low' },
+      q31: { area: 'S', type: 'yesno', positive: '1' }, q32: { area: 'S', type: 'number', direction: 'high' },
+      q33: { area: 'S', type: 'yesno', positive: '1' }, q34: { area: 'S', type: 'number', direction: 'high' },
+      q35: { area: 'S', type: 'yesno', positive: '1' }, q36: { area: 'S', type: 'yesno', positive: '1' },
+      q37: { area: 'S', type: 'yesno', positive: '1' }, q38: { area: 'S', type: 'number', direction: 'high' },
+      q39: { area: 'S', type: 'yesno', positive: '1' }, q40: { area: 'S', type: 'yesno', positive: '1' },
+      q41: { area: 'S', type: 'yesno', positive: '1' }, q42: { area: 'S', type: 'number', direction: 'high' },
+      q43: { area: 'S', type: 'yesno', positive: '1' }, q44: { area: 'S', type: 'yesno', positive: '1' },
+      q45: { area: 'S', type: 'yesno', positive: '1' }, q46: { area: 'S', type: 'yesno', positive: '1' },
+      q47: { area: 'S', type: 'yesno', positive: '1' }, q48: { area: 'S', type: 'yesno', positive: '1' },
+      q49: { area: 'S', type: 'yesno', positive: '1' }, q50: { area: 'S', type: 'number', direction: 'low' },
+      q51: { area: 'S', type: 'yesno', positive: '1' }, q52: { area: 'S', type: 'yesno', positive: '1' },
+      q53: { area: 'S', type: 'number', direction: 'high' }, q54: { area: 'S', type: 'yesno', positive: '1' },
+      q55: { area: 'G', type: 'yesno', positive: '1' }, q56: { area: 'G', type: 'number', direction: 'high' },
+      q57: { area: 'G', type: 'yesno', positive: '1' }, q58: { area: 'G', type: 'yesno', positive: '1' },
+      q59: { area: 'G', type: 'yesno', positive: '1' }, q60: { area: 'G', type: 'number', direction: 'high' },
+      q61: { area: 'G', type: 'yesno', positive: '1' }, q62: { area: 'G', type: 'yesno', positive: '1' },
+      q63: { area: 'G', type: 'yesno', positive: '1' }, q64: { area: 'G', type: 'yesno', positive: '1' },
+      q65: { area: 'G', type: 'yesno', positive: '1' }, q66: { area: 'G', type: 'yesno', positive: '1' },
+      q67: { area: 'G', type: 'yesno', positive: '1' }, q68: { area: 'G', type: 'yesno', positive: '1' },
+      q69: { area: 'G', type: 'yesno', positive: '1' }, q70: { area: 'G', type: 'yesno', positive: '1' },
+      q71: { area: 'G', type: 'yesno', positive: '1' }, q72: { area: 'G', type: 'yesno', positive: '1' },
+      q73: { area: 'G', type: 'yesno', positive: '1' }, q74: { area: 'G', type: 'yesno', positive: '1' },
+      q75: { area: 'G', type: 'yesno', positive: '1' }, q76: { area: 'G', type: 'number', direction: 'high' },
+      q77: { area: 'G', type: 'yesno', positive: '1' }, q78: { area: 'G', type: 'yesno', positive: '1' },
+      q79: { area: 'G', type: 'yesno', positive: '1' }, q80: { area: 'G', type: 'yesno', positive: '1' }
+    };
+
+    for (const [key, value] of params.entries()) {
+      const meta = questionMeta[key];
+      if (!meta) continue;
+      let score = 0;
+      if (meta.type === 'yesno') {
+        score = (value === meta.positive) ? 1 : 0;
+        maxScores[meta.area] += 1;
+      } else if (meta.type === 'number') {
+        const v = parseFloat(value);
+        if (isNaN(v)) continue;
+        score = Math.max(0, Math.min(1, meta.direction === 'high' ? v / 100 : 1 - v / 100));
+        maxScores[meta.area] += 1;
+      }
+      rawScores[meta.area] += score;
+      areaScores[meta.area].push(score);
+    }
+
+    const avg = (a, b) => b === 0 ? 0 : Math.round((a / b) * 100);
+    const eScore = avg(rawScores.E, maxScores.E);
+    const sScore = avg(rawScores.S, maxScores.S);
+    const gScore = avg(rawScores.G, maxScores.G);
+    const total = Math.round((eScore + sScore + gScore) / 3);
+
+    const eGrade = toGrade(eScore);
+    const sGrade = toGrade(sScore);
+    const gGrade = toGrade(gScore);
+    const totalGrade = toGrade(total);
+
+    document.getElementById("summary").innerHTML = `
+      <table>
+        <tr><th>영역</th><th>점수</th><th>등급</th></tr>
+        <tr><td>환경 (E)</td><td>${eScore}점</td><td>${eGrade}</td></tr>
+        <tr><td>사회 (S)</td><td>${sScore}점</td><td>${sGrade}</td></tr>
+        <tr><td>지배구조 (G)</td><td>${gScore}점</td><td>${gGrade}</td></tr>
+        <tr><td><strong>총점</strong></td><td><strong>${total}점</strong></td><td><strong>${totalGrade}</strong></td></tr>
+      </table>
+    `;
+
+    new Chart(document.getElementById("esgChart"), {
+      type: 'radar',
+      data: {
+        labels: ['환경 (E)', '사회 (S)', '지배구조 (G)'],
+        datasets: [{
+          label: 'ESG 점수 (%)',
+          data: [eScore, sScore, gScore],
+          fill: true,
+          borderColor: '#673ab7',
+          backgroundColor: 'rgba(103, 58, 183, 0.2)',
+          pointBackgroundColor: '#673ab7'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            suggestedMin: 0,
+            suggestedMax: 100
+          }
+        }
+      }
+    });
+
+    const mapURL = `esg_map.html?eScore=${eScore}&sScore=${sScore}&gScore=${gScore}`;
+    document.getElementById("mapLink").href = mapURL;
+  </script>
+</body>
+</html>

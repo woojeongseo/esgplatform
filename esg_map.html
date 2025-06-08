@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ESG Similar Countries Map</title>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+    .radio-buttons, .search-box {
+      margin: 10px 0;
+    }
+    #map {
+      height: 600px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🌍 ESG Similar Countries Map</h2>
+
+  <div class="search-box">
+    <input type="text" id="countrySearch" placeholder="Enter country name (English)" style="width:300px; padding:8px;">
+    <button onclick="searchCountry()">Search</button>
+  </div>
+
+  <div class="radio-buttons">
+    <label><input type="radio" name="focus" value="all" checked> All</label>
+    <label><input type="radio" name="focus" value="E"> Environment (E)</label>
+    <label><input type="radio" name="focus" value="S"> Social (S)</label>
+    <label><input type="radio" name="focus" value="G"> Governance (G)</label>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="countryESG.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const eScore = parseFloat(params.get("eScore"));
+    const sScore = parseFloat(params.get("sScore"));
+    const gScore = parseFloat(params.get("gScore"));
+    const user = { E: eScore / 100, S: sScore / 100, G: gScore / 100 };
+
+    const map = L.map('map').setView([20, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    function getDistance(a, b, focus) {
+      if (focus === 'E') return Math.abs(a.E - b.E);
+      if (focus === 'S') return Math.abs(a.S - b.S);
+      if (focus === 'G') return Math.abs(a.G - b.G);
+      return Math.sqrt(
+        Math.pow(a.E - b.E, 2) +
+        Math.pow(a.S - b.S, 2) +
+        Math.pow(a.G - b.G, 2)
+      );
+    }
+
+    function renderMap(focus) {
+      map.eachLayer(layer => {
+        if (layer instanceof L.CircleMarker) map.removeLayer(layer);
+      });
+
+      const sorted = countryESG
+        .filter(c => c.lat && c.lon)
+        .map(c => ({ ...c, dist: getDistance(c, user, focus) }))
+        .sort((a, b) => a.dist - b.dist)
+        .slice(0, 10);
+
+      sorted.forEach(c => {
+        L.circleMarker([c.lat, c.lon], {
+          radius: 8,
+          fillColor: '#673ab7',
+          color: '#000',
+          weight: 1,
+          fillOpacity: 0.7
+        }).bindPopup(`<b>${c.country}</b><br>E: ${c.E}<br>S: ${c.S}<br>G: ${c.G}`).addTo(map);
+      });
+    }
+
+    function searchCountry() {
+      const keyword = document.getElementById("countrySearch").value.trim().toLowerCase();
+      if (!keyword) return;
+
+      const match = countryESG.find(c => c.country.toLowerCase().includes(keyword));
+      if (match && match.lat && match.lon) {
+        map.setView([match.lat, match.lon], 5);
+        L.popup()
+          .setLatLng([match.lat, match.lon])
+          .setContent(`<b>${match.country}</b><br>E: ${match.E}<br>S: ${match.S}<br>G: ${match.G}`)
+          .openOn(map);
+      } else {
+        alert("Country not found.");
+      }
+    }
+
+    document.querySelectorAll('input[name="focus"]').forEach(radio => {
+      radio.addEventListener('change', e => renderMap(e.target.value));
+    });
+
+    renderMap('all');
+  </script>
+</body>
+</html>

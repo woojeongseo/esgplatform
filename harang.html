@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG 통합 포털</title>
+    <link rel="stylesheet" href="styles3.css">
+    <link rel="stylesheet" href="slideshow.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="about.html">ESG 맵</a>
+            <a href="esg_intro.html">ESG 자가진단</a>
+            <a href="players.html">보안 자가진단</a>
+        </nav>
+        <div class="hero">
+            <h1>국내 ESG 종합 포털</h1>
+        </div>
+        <div class="login-container">
+            <form id="loginForm" onsubmit="return login()">
+                <input type="text" id="username" placeholder="아이디" required>
+                <input type="password" id="password" placeholder="비밀번호" required>
+                <input type="submit" value="로그인">
+            </form>
+            <div id="loginMessage" class="login-message"></div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="slideshow-section">
+            <div class="slideshow-container">
+                <div class="mySlides fade"><img src="images/esg1.jpg" style="width:100%"></div>
+                <div class="mySlides fade"><img src="images/esg2.jpg" style="width:100%"></div>
+                <div class="mySlides fade"><img src="images/esg3.jpg" style="width:100%"></div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 class="section-title">포털 기능 소개</h2>
+            <div class="cards">
+                <div class="card">
+                    <a href="about.html">
+                        <img src="images/map.jpg" alt="ESG 맵">
+                        <div class="card-content">ESG 관련 기관 맵</div>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="esg_intro.html">
+                        <img src="images/check.jpg" alt="자가진단">
+                        <div class="card-content">ESG 자가진단 툴</div>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="players.html">
+                        <img src="images/security.jpg" alt="보안 진단">
+                        <div class="card-content">보안 자가진단</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="api-data">
+            <h2 class="section-title">실시간 ESG 온실가스 통계</h2>
+            <div id="esg-data-container">
+                <p>데이터를 불러오는 중입니다...</p>
+            </div>
+        </section>
+
+        <section class="social-links">
+            <a href="https://www.kotra.or.kr/" target="_blank"><img src="images/kotra.jpg" alt="KOTRA"></a>
+            <a href="https://kdoctor.kosmes.or.kr/esgplatform/" target="_blank"><img src="images/kosmes.jpg" alt="중진공"></a>
+            <a href="https://dart.fss.or.kr" target="_blank"><img src="images/dart.jpg" alt="DART"></a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 외교부 산하 ESG 통합 포털 | 모든 권리 보유</p>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex-1].style.display = "block";
+            setTimeout(showSlides, 5000);
+        }
+
+        function plusSlides(n) {
+            slideIndex += n;
+            if (slideIndex > document.getElementsByClassName("mySlides").length) slideIndex = 1;
+            if (slideIndex < 1) slideIndex = document.getElementsByClassName("mySlides").length;
+            showSlides();
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('loginMessage');
+
+            if (username === '201811114' && password === '우정0917!') {
+                message.textContent = '로그인에 성공했습니다.';
+                message.className = 'login-message login-success';
+            } else {
+                message.textContent = '로그인에 실패했습니다.';
+                message.className = 'login-message login-failure';
+            }
+
+            return false;
+        }
+
+        async function fetchESGData() {
+            const container = document.getElementById('esg-data-container');
+            const apiKey = "YOUR_SERVICE_KEY"; // 본인의 API 인증키로 교체
+
+            try {
+                const response = await fetch(`https://api.odcloud.kr/api/15077682/v1/uddi:3dfc3527-0ce6-4df0-9251-8b8ff1e3782b?page=1&perPage=5&serviceKey=${apiKey}`);
+                const data = await response.json();
+
+                if (data && data.data && data.data.length > 0) {
+                    container.innerHTML = data.data.map(item => `
+                        <div class="esg-data-item">
+                            <p><strong>연도:</strong> ${item.연도}</p>
+                            <p><strong>총배출량:</strong> ${item.총배출량} ktCO₂eq</p>
+                            <hr>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = "<p>데이터가 없습니다.</p>";
+                }
+
+            } catch (error) {
+                container.innerHTML = "<p>데이터를 불러오는 데 실패했습니다.</p>";
+                console.error(error);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchESGData);
+    </script>
+</body>
+</html>

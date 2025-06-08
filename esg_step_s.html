@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ESG 자가진단 - 사회(S)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form id="sForm" action="esg_step_g.html" method="get">
+        <div class="form-title">ESG 자가진단 - 사회(S) 영역</div>
+
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                const params = new URLSearchParams(window.location.search);
+                const form = document.getElementById('sForm');
+                for (const [key, value] of params.entries()) {
+                    const hidden = document.createElement('input');
+                    hidden.type = 'hidden';
+                    hidden.name = key;
+                    hidden.value = value;
+                    form.appendChild(hidden);
+                }
+            });
+        </script>
+
+        <div class="question">
+            <label for="q28">28. 전체 임직원 중 여성 비율은 몇 %입니까?</label>
+            <input type="number" id="q28" name="q28" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>29. 여성 임원 또는 리더십 포지션이 존재합니까?</label>
+            <label><input type="radio" name="q29" value="1"> 예</label>
+            <label><input type="radio" name="q29" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q30">30. 연간 산업재해 발생 건수는 몇 건입니까?</label>
+            <input type="number" id="q30" name="q30" step="1" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>31. 안전보건 교육을 정기적으로 실시하고 있습니까?</label>
+            <label><input type="radio" name="q31" value="1"> 예</label>
+            <label><input type="radio" name="q31" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q32">32. 연간 평균 근속연수는 몇 년입니까?</label>
+            <input type="number" id="q32" name="q32" step="0.1" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>33. 내부 고충처리 제도가 마련되어 있습니까?</label>
+            <label><input type="radio" name="q33" value="1"> 예</label>
+            <label><input type="radio" name="q33" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q34">34. 임직원 대상 연간 교육시간 평균은 몇 시간입니까?</label>
+            <input type="number" id="q34" name="q34" step="0.1" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>35. 다양성과 포용 정책을 명문화하였습니까?</label>
+            <label><input type="radio" name="q35" value="1"> 예</label>
+            <label><input type="radio" name="q35" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>36. 지역사회 봉사활동이나 사회공헌 활동을 정기적으로 수행합니까?</label>
+            <label><input type="radio" name="q36" value="1"> 예</label>
+            <label><input type="radio" name="q36" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>37. 공정한 채용을 위한 제도(예: 블라인드 채용)를 운영 중입니까?</label>
+            <label><input type="radio" name="q37" value="1"> 예</label>
+            <label><input type="radio" name="q37" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q38">38. 협력업체 및 공급망 노동환경 모니터링 비율은 몇 %입니까?</label>
+            <input type="number" id="q38" name="q38" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>39. 인권 침해에 대한 제보 채널을 운영합니까?</label>
+            <label><input type="radio" name="q39" value="1"> 예</label>
+            <label><input type="radio" name="q39" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>40. 근로시간 및 임금 기준이 국내법에 부합합니까?</label>
+            <label><input type="radio" name="q40" value="1"> 예</label>
+            <label><input type="radio" name="q40" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>41. 임직원 복지제도를 운영 중입니까?</label>
+            <label><input type="radio" name="q41" value="1"> 예</label>
+            <label><input type="radio" name="q41" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q42">42. 고객 만족도 지표 또는 조사 결과 수치는 얼마입니까?</label>
+            <input type="number" id="q42" name="q42" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>43. 개인정보 보호 정책을 수립 및 운영하고 있습니까?</label>
+            <label><input type="radio" name="q43" value="1"> 예</label>
+            <label><input type="radio" name="q43" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>44. 고객 불만사항 처리 절차를 갖추고 있습니까?</label>
+            <label><input type="radio" name="q44" value="1"> 예</label>
+            <label><input type="radio" name="q44" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>45. 인권 관련 규정을 협력업체에도 적용합니까?</label>
+            <label><input type="radio" name="q45" value="1"> 예</label>
+            <label><input type="radio" name="q45" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>46. 청소년 보호 정책을 수립하여 운영 중입니까?</label>
+            <label><input type="radio" name="q46" value="1"> 예</label>
+            <label><input type="radio" name="q46" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>47. 취약계층 지원 프로그램을 운영합니까?</label>
+            <label><input type="radio" name="q47" value="1"> 예</label>
+            <label><input type="radio" name="q47" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>48. 공정거래 관련 교육을 임직원에게 제공하고 있습니까?</label>
+            <label><input type="radio" name="q48" value="1"> 예</label>
+            <label><input type="radio" name="q48" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>49. 사회적기업이나 소셜벤처와의 협력 경험이 있습니까?</label>
+            <label><input type="radio" name="q49" value="1"> 예</label>
+            <label><input type="radio" name="q49" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q50">50. 윤리경영 관련 내부 제보 건수는 몇 건입니까?</label>
+            <input type="number" id="q50" name="q50" step="1" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>51. 직장 내 괴롭힘 예방 교육을 실시합니까?</label>
+            <label><input type="radio" name="q51" value="1"> 예</label>
+            <label><input type="radio" name="q51" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>52. 노동조합 또는 근로자 대표기구가 존재합니까?</label>
+            <label><input type="radio" name="q52" value="1"> 예</label>
+            <label><input type="radio" name="q52" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q53">53. 육아휴직 사용률은 얼마입니까? (%)</label>
+            <input type="number" id="q53" name="q53" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>54. 청년/고령자 고용정책이 존재합니까?</label>
+            <label><input type="radio" name="q54" value="1"> 예</label>
+            <label><input type="radio" name="q54" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <button type="submit">다음 (지배구조 영역)</button>
+    </form>
+</body>
+</html>

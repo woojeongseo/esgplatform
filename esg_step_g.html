@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ESG 자가진단 - 지배구조(G)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form id="gForm" action="esg_result.html" method="get">
+        <div class="form-title">ESG 자가진단 - 지배구조(G) 영역</div>
+
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                const params = new URLSearchParams(window.location.search);
+                const form = document.getElementById('gForm');
+                for (const [key, value] of params.entries()) {
+                    const hidden = document.createElement('input');
+                    hidden.type = 'hidden';
+                    hidden.name = key;
+                    hidden.value = value;
+                    form.appendChild(hidden);
+                }
+            });
+        </script>
+
+        <div class="question">
+            <label>55. 이사회에 사외이사가 존재합니까?</label>
+            <label><input type="radio" name="q55" value="1"> 예</label>
+            <label><input type="radio" name="q55" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q56">56. 이사회 내 위원회 수는 몇 개입니까?</label>
+            <input type="number" id="q56" name="q56" step="1" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>57. 감사위원회가 존재합니까?</label>
+            <label><input type="radio" name="q57" value="1"> 예</label>
+            <label><input type="radio" name="q57" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q58">58. 최근 3년간 감사의견 중 '한정' 이상 받은 횟수는?</label>
+            <input type="number" id="q58" name="q58" step="1" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>59. 윤리경영 방침이 명문화되어 있습니까?</label>
+            <label><input type="radio" name="q59" value="1"> 예</label>
+            <label><input type="radio" name="q59" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>60. 부패 방지 정책이 수립되어 있습니까?</label>
+            <label><input type="radio" name="q60" value="1"> 예</label>
+            <label><input type="radio" name="q60" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q61">61. 내부통제 시스템 구축 여부는?</label>
+            <label><input type="radio" name="q61" value="1"> 구축됨</label>
+            <label><input type="radio" name="q61" value="0"> 미구축</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>62. 정보공개 및 투명한 커뮤니케이션을 위한 시스템을 운영합니까?</label>
+            <label><input type="radio" name="q62" value="1"> 예</label>
+            <label><input type="radio" name="q62" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q63">63. 이사회 구성원 중 여성 비율은 몇 %입니까?</label>
+            <input type="number" id="q63" name="q63" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>64. ESG 관련 리스크를 관리하기 위한 전담 부서 또는 책임자가 있습니까?</label>
+            <label><input type="radio" name="q64" value="1"> 예</label>
+            <label><input type="radio" name="q64" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>65. ESG 성과를 경영성과에 반영합니까?</label>
+            <label><input type="radio" name="q65" value="1"> 예</label>
+            <label><input type="radio" name="q65" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q66">66. 최근 1년간 ESG 관련 교육 횟수는 몇 회입니까?</label>
+            <input type="number" id="q66" name="q66" step="1" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>67. 지속가능경영보고서를 발간한 경험이 있습니까?</label>
+            <label><input type="radio" name="q67" value="1"> 예</label>
+            <label><input type="radio" name="q67" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>68. ESG 이슈를 다루는 정기 회의를 운영합니까?</label>
+            <label><input type="radio" name="q68" value="1"> 예</label>
+            <label><input type="radio" name="q68" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q69">69. 최근 3년간 법규 위반 건수는 몇 건입니까?</label>
+            <input type="number" id="q69" name="q69" step="1" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>70. 윤리경영 교육을 전 직원에게 실시하고 있습니까?</label>
+            <label><input type="radio" name="q70" value="1"> 예</label>
+            <label><input type="radio" name="q70" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <button type="submit">결과 보기</button>
+    </form>
+</body>
+</html>

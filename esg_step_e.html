@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ESG 자가진단 - 환경(E)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form id="eForm" action="esg_step_s.html" method="get">
+        <div class="form-title">ESG 자가진단 - 환경(E) 영역</div>
+
+        <div class="question">
+            <label for="q1">1. 귀사의 연간 온실가스 배출량은 얼마입니까? (단위: tCO2eq)</label><br>
+            <input type="number" id="q1" name="q1" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>2. 귀사는 온실가스 감축 목표를 설정하였습니까?</label><br>
+            <label><input type="radio" name="q2" value="1"> 예</label>
+            <label><input type="radio" name="q2" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q3">3. 재생에너지 사용 비율은 얼마입니까? (%)</label><br>
+            <input type="number" id="q3" name="q3" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>4. 환경 관련 법규 위반 이력이 있습니까?</label><br>
+            <label><input type="radio" name="q4" value="1"> 예</label>
+            <label><input type="radio" name="q4" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q5">5. 사업장에서 발생하는 폐기물 중 재활용 비율은 얼마입니까? (%)</label><br>
+            <input type="number" id="q5" name="q5" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>6. 환경 리스크 분석을 수행합니까?</label><br>
+            <label><input type="radio" name="q6" value="1"> 예</label>
+            <label><input type="radio" name="q6" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q7">7. 에너지 사용량 총합은 얼마입니까? (단위: MWh)</label><br>
+            <input type="number" id="q7" name="q7" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>8. 에너지 효율 개선 활동을 시행하고 있습니까?</label><br>
+            <label><input type="radio" name="q8" value="1"> 예</label>
+            <label><input type="radio" name="q8" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>9. 환경 관련 교육을 정기적으로 실시합니까?</label><br>
+            <label><input type="radio" name="q9" value="1"> 예</label>
+            <label><input type="radio" name="q9" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>10. 주요 원재료의 지속가능성(친환경 인증 등)을 고려합니까?</label><br>
+            <label><input type="radio" name="q10" value="1"> 예</label>
+            <label><input type="radio" name="q10" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>11. ISO 14001(환경경영시스템) 인증을 취득하였습니까?</label><br>
+            <label><input type="radio" name="q11" value="1"> 예</label>
+            <label><input type="radio" name="q11" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q12">12. 수자원 사용량은 얼마입니까? (단위: m³)</label><br>
+            <input type="number" id="q12" name="q12" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q13">13. 폐수 방류량은 얼마입니까? (단위: m³)</label><br>
+            <input type="number" id="q13" name="q13" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>14. 대기오염물질 배출 저감 설비를 갖추고 있습니까?</label><br>
+            <label><input type="radio" name="q14" value="1"> 예</label>
+            <label><input type="radio" name="q14" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>15. 탄소정보를 외부에 공시하고 있습니까?</label><br>
+            <label><input type="radio" name="q15" value="1"> 예</label>
+            <label><input type="radio" name="q15" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q16">16. 제품의 친환경 인증 비율은 얼마입니까? (%)</label><br>
+            <input type="number" id="q16" name="q16" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>17. 생물다양성 보전 활동을 수행합니까?</label><br>
+            <label><input type="radio" name="q17" value="1"> 예</label>
+            <label><input type="radio" name="q17" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>18. 환경 목표 달성에 대한 내부 점검을 실시합니까?</label><br>
+            <label><input type="radio" name="q18" value="1"> 예</label>
+            <label><input type="radio" name="q18" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>19. 물 사용 절감 계획이 있습니까?</label><br>
+            <label><input type="radio" name="q19" value="1"> 예</label>
+            <label><input type="radio" name="q19" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>20. 기후변화 대응 전략을 수립하였습니까?</label><br>
+            <label><input type="radio" name="q20" value="1"> 예</label>
+            <label><input type="radio" name="q20" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>21. 친환경 제품 개발에 R&D 예산을 배정합니까?</label><br>
+            <label><input type="radio" name="q21" value="1"> 예</label>
+            <label><input type="radio" name="q21" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>22. 공급망의 환경 영향을 평가합니까?</label><br>
+            <label><input type="radio" name="q22" value="1"> 예</label>
+            <label><input type="radio" name="q22" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>23. 화학물질 관리 시스템을 운영합니까?</label><br>
+            <label><input type="radio" name="q23" value="1"> 예</label>
+            <label><input type="radio" name="q23" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label for="q24">24. 친환경 포장재 사용 비율은 얼마입니까? (%)</label><br>
+            <input type="number" id="q24" name="q24" step="0.01" min="0" required>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>25. 사업장의 녹색 인증(예: 그린빌딩)을 받았습니까?</label><br>
+            <label><input type="radio" name="q25" value="1"> 예</label>
+            <label><input type="radio" name="q25" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>26. 전기차, 수소차 등 친환경 차량 도입 여부</label><br>
+            <label><input type="radio" name="q26" value="1"> 예</label>
+            <label><input type="radio" name="q26" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <div class="question">
+            <label>27. 환경경영 전담 인력이 있습니까?</label><br>
+            <label><input type="radio" name="q27" value="1"> 예</label>
+            <label><input type="radio" name="q27" value="0"> 아니오</label>
+            <hr>
+        </div>
+
+        <button type="submit">다음 (사회 영역)</button>
+    </form>
+</body>
+</html>
